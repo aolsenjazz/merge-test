@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>LibSampleRate-JS</title>
+	<script src="https://cdn.jsdelivr.net/npm/wavefile"></script>
+	<script src="../../dist/libsamplerate.js"></script>
+
+</head>
+<body>
+	<input type="file" accept="audio" id="input"/>
+	<select name="Output Sample Rate" id="sample-rate">
+		<option value="null">Select Output Sample Rate</option>
+		<option value="44100">44100</option>
+		<option value="48000">48000</option>
+		<option value="88200">88200</option>
+		<option value="96000">96000</option>
+	</select>
+	<button id="resample">Resample</button>
+	<button id="play">Play Resampled Audio</button>
+	<p id="msg"></p>
+
+	<script>
+		// get dom objects
+		var sr       = document.getElementById('sample-rate');
+		var input    = document.getElementById('input');
+		var resample = document.getElementById('resample');
+		var msg      = document.getElementById('msg');
+		var samples, resampled;
+		
+		// init sample rate converter
+		var src;
+		LibSampleRate.create(2, 44100, 44100).then((_src) => src = _src);
+
+		// load a .wav file
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			// create a WaveFile object + get meta information
+			var safariFixed = e.target.result.split('base64,')[1];
+			var wav = new wavefile.WaveFile();
+			wav.fromBase64(safariFixed);
+
+			// update SRC
+			src.nChannels = wav.fmt.numChannels;
+			src.inputSampleRate = wav.fmt.sampleRate;
+
+			// get the raw samples, then convert to Float32 where -1 < sample < 1
+			samples = wav.getSamples(true, Int16Array);
+			var float32 = new Float32Array(samples);
+
+			for (var i = 0; i < samples.length; i++) {
+				float32[i] = samples[i] / 32767;
+			}
+
+			samples = float32;
+		}
+		input.onchange = (e) => reader.readAsDataURL(e.target.files[0]);
+		sr.onchange = (e) => src.outputSampleRate = parseInt(e.target.value);
+
+		resample.onclick = () => {
+			msg.innerHTML = '';
+			if (samples === undefined) msg.innerHTML = 'You need to pick a .wav file';
+
+			var time = Date.now();
+			resampled = src.simple(samples);
+
+			msg.innerHTML = 'Converted to ' + resampled.length + ' samples in ' + (Date.now() - time) + ' ms';
+		}
+
+		play.onclick = () => {
+			// init audio ctx
+			var AudioCtx = window.AudioContext || window.webkitAudioContext;
+			var context = new AudioCtx({sampleRate: parseInt(src.outputSampleRate)});
+			var buff = context.createBuffer(src.nChannels, resampled.length / src.nChannels, parseInt(src.outputSampleRate));
+
+			// get the channels
+			var chans = [];
+			for (var i = 0; i < src.nChannels; i++) {
+				chans.push(buff.getChannelData(i));
+			}
+
+			// fill channels with the resampled audio
+			var chanPos = 0;
+			for (var i = 0; i < resampled.length; i += src.nChannels) {
+				for (var j = 0; j < src.nChannels; j++) {
+					chans[j][chanPos] = resampled[i+j];
+				}
+				chanPos++;
+			}
+
+			// start audio
+			var buffSource = context.createBufferSource();
+			buffSource.buffer = buff;
+			buffSource.connect(context.destination);
+			buffSource.start();
+		}
+		
+
+	</script>
+</body>
+</html>
