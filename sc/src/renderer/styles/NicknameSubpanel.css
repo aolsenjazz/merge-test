@@ -1,0 +1,61 @@
+.nickname-subpanel {
+  display: flex;
+  flex-direction: column;
+}
+
+.nickname-subpanel.deactivated label,
+.nickname-subpanel.deactivated input {
+  pointer-events: none;
+  cursor: default;
+  filter: grayscale(50%);
+  opacity: 50%;
+}
+
+.nickname-subpanel label {
+  line-height: 20px;
+  display: inline-flex;
+  margin-top: 6px;
+}
+
+.nickname-subpanel input {
+  padding: 2px;
+  padding-left: 4px;
+  color: #262626;
+  border: 1px solid #dbd7d8;
+  border-bottom: 1px solid #b8b6b7;
+  border-radius: 4px;
+  vertical-align: top;
+  flex-grow: 1;
+  margin-left: 5px;
+}
+
+.nickname-subpanel h1 {
+  margin: 2px 0 2px 0;
+}
+
+.nickname-subpanel .adapter-details-subpanel {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+}
+
+.nickname-subpanel .adapter-details-subpanel > p {
+  line-height: 16px;
+  opacity: 0.8;
+}
+
+.nickname-subpanel .help-tip {
+  margin-top: 1px;
+  margin-left: 3px;
+}
+
+.nickname-subpanel #adapter-select {
+  margin-top: 8px;
+}
+
+.nickname-subpanel .ios-select select {
+  margin-left: 4px;
+  height: 20px;
+  min-width: 130px;
+  font-size: 12px;
+}

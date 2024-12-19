@@ -1,0 +1,44 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  release:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v4
+
+      - name: Install Node.js and NPM
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21
+
+      - name: install Linux dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get install -y libasound2-dev
+
+      - name: install distutils on osx
+        if: runner.os == 'macOS'
+        run: |
+          brew install python-setuptools
+
+      - name: run post-clone
+        run: |
+          npm run post-clone
+
+      - name: npm test
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+        run: |
+          npm run package
+          npm run lint
+          npm exec tsc
+          npm test

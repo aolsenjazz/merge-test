@@ -1,0 +1,194 @@
+@keyframes blink {
+  50.0% {
+    background-color: transparent;
+  }
+}
+
+@keyframes Blink {
+  50.0% {
+    background-color: transparent;
+  }
+}
+
+@keyframes Pulse {
+  50.0% {
+    background-color: transparent;
+  }
+}
+
+/* positional stuff for the device layout really belongs in a parent file */
+.device-layout {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: solid 1px #bcbec0;
+  max-height: 90%;
+  max-width: 90%;
+}
+
+#device-panel .device-container.configured * {
+  border-color: #3a84e9;
+}
+
+#device-panel .device-container * {
+  border-color: #bcbec0;
+}
+
+#device-panel .device-container .device-layout .device-root {
+  height: 100%;
+}
+
+.device-layout .input-grid {
+  position: absolute !important;
+}
+
+.device-layout .input-container {
+  display: inline-block;
+  float: left;
+  position: relative;
+  text-align: center;
+}
+
+.device-layout .focus .pad,
+.device-layout .focus .switch,
+.device-layout .focus .handle-input,
+.device-layout .focus .xy,
+.device-layout .focus .knob .outer {
+  border-style: dashed !important;
+  filter: sepia(0.2);
+}
+
+#device-panel .device-layout .noninteractive {
+  border-color: #bcbec0;
+}
+
+.device-layout .pad {
+  position: absolute;
+  border: 1px solid;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: steps(1);
+  animation-fill-mode: both;
+  width: 100%;
+  height: 100%;
+}
+
+.device-layout .input-wrapper {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.device-layout .hoverable:hover {
+  filter: sepia(0.1);
+}
+
+.device-layout .hoverable:active:hover {
+  filter: sepia(0.2);
+}
+
+#device-panel .device-container .device-layout .keyboard-container {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border-top: 1px solid;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+  border-color: #bcbec0;
+}
+
+.device-layout .octave {
+  height: 100%;
+  display: inline-block;
+  position: relative;
+  display: flex;
+}
+
+#device-panel .device-container .device-layout .key {
+  border-left: 1px solid;
+  display: inline-block;
+  flex: 1;
+  border-color: #bcbec0;
+}
+
+.device-layout .key-black {
+  position: absolute;
+  border-left: 1px solid;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+  top: 0;
+  height: 60%;
+  background-color: #e6e2e3;
+  border-color: #bcbec0;
+  width: 10%;
+}
+
+.device-layout .key-white {
+  height: 100%;
+}
+
+.device-layout .handle-input {
+  position: relative;
+  border: 1px solid;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+}
+
+.device-layout .switch {
+  position: relative;
+  border: 1px solid;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+}
+
+.device-layout .switch .inner {
+  border: 1px solid;
+  position: absolute;
+  transition: bottom 0.1s linear;
+}
+
+.device-layout .handle-input .inner {
+  border: 1px solid;
+  position: absolute;
+  transition: bottom 0.1s linear;
+  transform: translateY(50%);
+}
+
+.device-layout .handle-input.horizontal .inner {
+  transform: translateX(-50%);
+}
+
+.device-layout .handle-input .bounding-box {
+  position: absolute;
+  width: 100%;
+}
+
+.device-layout .xy {
+  position: relative;
+  border: 1px solid;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+}
+
+.device-layout .xy .inner {
+  border: 1px solid;
+  border-radius: 100%;
+  position: absolute;
+  background-color: #e6e2e3;
+}
+
+.device-layout .svg-wrapper {
+  text-align: center;
+}
+
+.device-layout svg {
+  max-width: 50%;
+  padding: 40px;
+  max-height: 90%;
+}

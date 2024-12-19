@@ -1,0 +1,24 @@
+.device-container {
+  height: 100%;
+  vertical-align: top;
+  display: inline-block;
+  width: 100%;
+  position: relative;
+}
+
+.device-container .warning-container {
+  height: 100%;
+  right: 0;
+  position: absolute;
+  width: 40px;
+  display: flex;
+  flex-direction: row;
+  top: 0;
+  pointer-events: none;
+}
+
+.device-container .warning-container .warning-icon {
+  margin-top: auto;
+  align-self: flex-end;
+  pointer-events: auto;
+}

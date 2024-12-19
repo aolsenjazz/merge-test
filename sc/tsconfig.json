@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "target": "es2021",
+    "module": "commonjs",
+    "lib": ["dom", "es2021"],
+    "jsx": "react-jsx",
+    "strict": true,
+    "sourceMap": true,
+    "baseUrl": "./src",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "noUnusedLocals": true,
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "noUnusedParameters": true,
+    "useUnknownInCatchVariables": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@shared/*": ["shared/*"],
+      "@assets/*": ["renderer/assets/*"],
+      "@context/*": ["renderer/context/*"],
+      "@hooks/*": ["renderer/hooks/*"],
+      "@plugins/*": ["plugins/*"],
+      "@main/*": ["main/*"],
+      "@features/*": ["renderer/features/*"],
+      "@selectors/*": ["renderer/selectors/*"]
+    },
+    "outDir": ".erb/dll"
+  },
+  "exclude": ["test", "release/build", "release/app/dist", ".erb/dll"]
+}
